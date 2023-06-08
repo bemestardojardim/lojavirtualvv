@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tienda Online</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .category {
+      font-weight: bold;
+      margin-top: 30px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .product {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+    }
+
+    .product img {
+      width: 80px;
+      height: 80px;
+      margin-right: 10px;
+      border-radius: 5px;
+    }
+
+    .product h3 {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .product p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .product button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #cart {
+      margin-top: 30px;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      text-align: left;
+    }
+
+    #cart h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    #cartItems {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #cartItems li {
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    #total {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    #checkoutForm {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    #checkoutForm input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    #checkoutForm button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #warning {
+      text-align: center;
+      color: #f44336;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tienda Online</h1>
+
+  <div id="categories"></div>
+
+  <div id="cart">
+    <h2>Carrito</h2>
+    <ul id="cartItems"></ul>
+    <p id="total">Total: $0.00</p>
+    <p id="warning"></p>
+    <button onclick="showCheckoutForm()" id="checkoutButton" disabled>Continuar al checkout</button>
+  </div>
+
+  <div id="checkoutForm" style="display: none;">
+    <h2>Checkout</h2>
+    <form>
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" required>
+
+      <label for="address">Dirección de entrega:</label>
+      <input type="text" id="address" required>
+
+      <button type="button" onclick="sendWhatsAppMessage()">Enviar por WhatsApp</button>
+    </form>
+  </div>
+  
+  
+  
+  
+  <div id="checkoutForm" style="display: none;">
+    <h2>Checkout</h2>
+    <form>
+      <!-- Campos del formulario -->
+
+      <div id="checkoutForm">
+    <h2>Checkout</h2>
+    <form>
+      <!-- Campos del formulario -->
+
+      <button type="button" onclick="generateTicket()">Generar Ticket</button>
+    </form>
+  </div>
+
+  <div id="ticket" style="display: none;">
+    <h2>Ticket de Compra</h2>
+    <div id="ticketContent"></div>
+    <button onclick="shareTicket()">Compartir Ticket</button>
+  </div>
+  
+
+  <script>
+    var cartItems = [];
+    var total = 0.00;
+    var minPurchaseAmount = 20.00;
+
+    function addToCart(productName, price) {
+      cartItems.push(productName);
+      total += price;
+      updateCart();
+    }
+
+    function updateCart() {
+      var cartItemsElement = document.getElementById('cartItems');
+      cartItemsElement.innerHTML = '';
+
+      cartItems.forEach(function(item) {
+        var listItem = document.createElement('li');
+        listItem.textContent = item;
+        cartItemsElement.appendChild(listItem);
+      });
+
+      var totalElement = document.getElementById('total');
+      totalElement.textContent = 'Total: $' + total.toFixed(2);
+
+      var warningElement = document.getElementById('warning');
+      var checkoutButton = document.getElementById('checkoutButton');
+
+      if (total < minPurchaseAmount) {
+        warningElement.textContent = 'La compra mínima para habilitar el delivery es de $' + minPurchaseAmount.toFixed(2);
+        checkoutButton.disabled = true;
+      } else {
+        warningElement.textContent = 'Ya has habilitado el delivery';
+        checkoutButton.disabled = false;
+      }
+    }
+
+    function showCheckoutForm() {
+      document.getElementById('cart').style.display = 'none';
+      document.getElementById('checkoutForm').style.display = 'block';
+    }
+
+    function sendWhatsAppMessage() {
+      var name = document.getElementById('name').value;
+      var address = document.getElementById('address').value;
+
+      var message = 'Lista de compras:\n';
+
+      cartItems.forEach(function(item) {
+        message += '- ' + item + '\n';
+      });
+
+      message += 'Total: $' + total.toFixed(2) + '\n';
+      message += 'Dirección de entrega: ' + address;
+
+      var whatsappURL = 'https://wa.me/5522998883449?text=' + encodeURIComponent(message);
+
+      window.location.href = whatsappURL;
+    }
+
+    // Categorías y productos
+    var categories = [
+      {
+        name: 'Alimentos',
+        products: [
+          {
+            name: 'Frutas frescas',
+            price: 10.00
+          },
+          {
+            name: 'Verduras frescas',
+            price: 8.00
+          },
+          // Agrega más productos aquí
+        ]
+      },
+      {
+        name: 'Higiene personal',
+        products: [
+          {
+            name: 'Jabón de manos',
+            price: 5.00
+          },
+          {
+            name: 'Champú y acondicionador',
+            price: 12.00
+          },
+          // Agrega más productos aquí
+        ]
+      },
+      {
+        name: 'Limpieza del hogar',
+        products: [
+          {
+            name: 'Detergente para ropa',
+            price: 8.00
+          },
+          {
+            name: 'Limpia pisos',
+            price: 7.50
+          },
+          // Agrega más productos aquí
+        ]
+      }
+    ];
+
+    var categoriesElement = document.getElementById('categories');
+
+    categories.forEach(function(category) {
+      var categoryElement = document.createElement('div');
+      categoryElement.className = 'category';
+      categoryElement.textContent = category.name;
+      categoryElement.addEventListener('click', function() {
+        showProducts(category.products);
+      });
+      categoriesElement.appendChild(categoryElement);
+    });
+
+    function showProducts(products) {
+      categoriesElement.innerHTML = '';
+
+      var backButton = document.createElement('button');
+      backButton.textContent = 'Volver a categorías';
+      backButton.addEventListener('click', function() {
+        categoriesElement.innerHTML = '';
+        categories.forEach(function(category) {
+          var categoryElement = document.createElement('div');
+          categoryElement.className = 'category';
+          categoryElement.textContent = category.name;
+          categoryElement.addEventListener('click', function() {
+            showProducts(category.products);
+          });
+          categoriesElement.appendChild(categoryElement);
+        });
+      });
+      categoriesElement.appendChild(backButton);
+
+      products.forEach(function(product) {
+        var productElement = document.createElement('div');
+        productElement.className = 'product';
+        productElement.innerHTML = '<img src="ruta_de_la_imagen/' + product.name.toLowerCase().replace(/ /g, '-') + '.jpg" alt="' + product.name + '"><div><h3>' + product.name + '</h3><p>Precio: $' + product.price.toFixed(2) + '</p><button onclick="addToCart(\'' + product.name + '\', ' + product.price + ')">Añadir al carrito</button></div>';
+        categoriesElement.appendChild(productElement);
+      });
+    }
+    
+    // ...
+
+    function generateTicket() {
+      var name = document.getElementById('name').value;
+      var address = document.getElementById('address').value;
+      var ticketContent = document.getElementById('ticketContent');
+
+      // Generar contenido del ticket
+      var ticketHTML = '<p><strong>Nombre:</strong> ' + name + '</p>';
+      ticketHTML += '<p><strong>Dirección de entrega:</strong> ' + address + '</p>';
+      ticketHTML += '<h3>Lista de compras:</h3>';
+      ticketHTML += '<ul>';
+      cartItems.forEach(function(item) {
+        ticketHTML += '<li>' + item + '</li>';
+      });
+      ticketHTML += '</ul>';
+      ticketHTML += '<p><strong>Total:</strong> $' + total.toFixed(2) + '</p>';
+
+      ticketContent.innerHTML = ticketHTML;
+
+      // Ocultar el formulario de checkout y mostrar el ticket
+      document.getElementById('checkoutForm').style.display = 'none';
+      document.getElementById('ticket').style.display = 'block';
+    }
+
+    function shareTicket() {
+      var ticketContent = document.getElementById('ticketContent').innerHTML;
+
+      // Crear contenido para compartir en WhatsApp
+      var shareContent = '¡Gracias por tu compra!\n\n';
+      shareContent += ticketContent;
+
+      // URL de WhatsApp con el mensaje y contenido compartido
+      var whatsappURL = 'https://wa.me/5522998883449?text=' + encodeURIComponent(shareContent);
+
+      // Abrir enlace de WhatsApp para compartir
+      window.open(whatsappURL, '_blank');
+    }
+  </script>
+</body>
+</html>
