@@ -441,22 +441,28 @@ body {
   </script>
   
   
-  <button onclick="installApp()">Descargar App</button>
+  <button id="downloadButton" onclick="installApp()">Descargar App</button>
+
 
 <script>
   function installApp() {
-    if ('getInstalledRelatedApps' in navigator) {
-      navigator.getInstalledRelatedApps().then(function(apps) {
-        if (apps.length === 0) {
-          window.prompt('Presiona Ctrl+D (Windows/Linux) o Cmd+D (Mac) para agregar esta aplicación a tu pantalla de inicio.');
-        } else {
-          window.alert('Ya has instalado esta aplicación.');
-        }
-      });
-    } else {
-      window.alert('Tu navegador no es compatible con la instalación de aplicaciones web.');
-    }
+  var userAgent = navigator.userAgent.toLowerCase();
+  
+  if (userAgent.indexOf("android") !== -1 && 'getInstalledRelatedApps' in navigator) {
+    navigator.getInstalledRelatedApps().then(function(apps) {
+      if (apps.length === 0) {
+        window.prompt('Presiona Ctrl+D (Windows/Linux) o Cmd+D (Mac) para agregar esta aplicación a tu pantalla de inicio.');
+      } else {
+        window.alert('Ya has instalado esta aplicación.');
+      }
+    });
+  } else if (userAgent.indexOf("android") !== -1) {
+    window.alert('Tu dispositivo no es compatible con la instalación de aplicaciones web.');
+  } else {
+    window.alert('Esta función solo está disponible en dispositivos Android.');
   }
+}
+
 </script>
 
   
