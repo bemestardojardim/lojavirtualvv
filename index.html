@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>Tienda Online</title>
+  <link rel="icon" href="ico.png" type="ico.png">
+
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="manifest" href="/path/to/manifest.json">
@@ -441,29 +443,7 @@ body {
   </script>
   
   
-  <button id="downloadButton" onclick="installApp()">Descargar App</button>
 
-
-<script>
-  function installApp() {
-  var userAgent = navigator.userAgent.toLowerCase();
-  
-  if (userAgent.indexOf("android") !== -1 && 'getInstalledRelatedApps' in navigator) {
-    navigator.getInstalledRelatedApps().then(function(apps) {
-      if (apps.length === 0) {
-        window.prompt('Presiona Ctrl+D (Windows/Linux) o Cmd+D (Mac) para agregar esta aplicación a tu pantalla de inicio.');
-      } else {
-        window.alert('Ya has instalado esta aplicación.');
-      }
-    });
-  } else if (userAgent.indexOf("android") !== -1) {
-    window.alert('Tu dispositivo no es compatible con la instalación de aplicaciones web.');
-  } else {
-    window.alert('Esta función solo está disponible en dispositivos Android.');
-  }
-}
-
-</script>
 
   
 </body>
