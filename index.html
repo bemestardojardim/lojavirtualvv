@@ -160,57 +160,86 @@ body {
     }
     
     
+    
+ 
+    .ticket {
+      display: none;
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .ticket h2 {
+      margin-top: 0;
+    }
+
+    .ticketContent {
+      margin-bottom: 10px;
+    }
+
+  .cartItem {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    
+    
+    
+.removeItem {
+    color: red;
+    cursor: pointer;
+    font-size: 15px; /* Tamaño de fuente grande */
+  }
+    
+    
   </style>
 </head>
 <body>
-  <h1>Tienda Online</h1>
+  
+  <body>
+  <div class="container">
+    <h1>Tienda Online</h1>
+    <p>Bienvenido a nuestra tienda en línea.</p>
+    <!-- Resto del contenido -->
+    <div id="categories"></div>
+    <div id="cart">
+      <h2>Carrito</h2>
+      <ul id="cartItems"></ul>
+      <p id="total">Total: $0.00</p>
+      <p id="warning"></p>
+      <button onclick="showCheckoutForm()" id="checkoutButton" disabled>Continuar al checkout</button>
+    </div>
 
-  <div id="categories"></div>
+    <div id="checkoutForm" style="display: none;">
+      <h2>Checkout</h2>
+      <form>
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" required>
 
-  <div id="cart">
-    <h2>Carrito</h2>
-    <ul id="cartItems"></ul>
-    <p id="total">Total: $0.00</p>
-    <p id="warning"></p>
-    <button onclick="showCheckoutForm()" id="checkoutButton" disabled>Continuar al checkout</button>
+        <label for="address">Dirección de entrega:</label>
+        <input type="text" id="address" required>
+
+        <button type="button" onclick="sendWhatsAppMessage()">Enviar por WhatsApp</button>
+      </form>
+    </div>
+
+    <div id="ticket" class="ticket">
+      <h2>Ticket de Compra</h2>
+      <div id="ticketContent" class="ticketContent"></div>
+      <button onclick="shareTicket()">Compartir Ticket</button>
+    </div>
+
+    <script>
+      // ... Código JavaScript ...
+    </script>
   </div>
+</body>
 
-  <div id="checkoutForm" style="display: none;">
-    <h2>Checkout</h2>
-    <form>
-      <label for="name">Nombre:</label>
-      <input type="text" id="name" required>
 
-      <label for="address">Dirección de entrega:</label>
-      <input type="text" id="address" required>
 
-      <button type="button" onclick="sendWhatsAppMessage()">Enviar por WhatsApp</button>
-    </form>
-  </div>
-  
-  
-  
-  
-  <div id="checkoutForm" style="display: none;">
-    <h2>Checkout</h2>
-    <form>
-      <!-- Campos del formulario -->
 
-      <div id="checkoutForm">
-    <h2>Checkout</h2>
-    <form>
-      <!-- Campos del formulario -->
 
-      <button type="button" onclick="generateTicket()">Generar Ticket</button>
-    </form>
-  </div>
-
-  <div id="ticket" style="display: none;">
-    <h2>Ticket de Compra</h2>
-    <div id="ticketContent"></div>
-    <button onclick="shareTicket()">Compartir Ticket</button>
-  </div>
-  
 
   <script>
     var cartItems = [];
@@ -218,18 +247,26 @@ body {
     var minPurchaseAmount = 20.00;
 
     function addToCart(productName, price) {
-      cartItems.push(productName);
+      cartItems.push({ name: productName, price: price });
       total += price;
       updateCart();
     }
+
+    function removeFromCart(index) {
+  var removedItem = cartItems.splice(index, 1)[0];
+  total -= removedItem.price;
+  updateCart();
+}
+
 
     function updateCart() {
       var cartItemsElement = document.getElementById('cartItems');
       cartItemsElement.innerHTML = '';
 
-      cartItems.forEach(function(item) {
+      cartItems.forEach(function(item, index) {
         var listItem = document.createElement('li');
-        listItem.textContent = item;
+        listItem.innerHTML = item.name + ' - $' + item.price.toFixed(2) + ' <span class="removeItem" onclick="removeFromCart(' + index + ')">[quitar]</span>';
+
         cartItemsElement.appendChild(listItem);
       });
 
@@ -358,7 +395,7 @@ body {
     
     // ...
 
-    function generateTicket() {
+     function generateTicket() {
       var name = document.getElementById('name').value;
       var address = document.getElementById('address').value;
       var ticketContent = document.getElementById('ticketContent');
@@ -376,7 +413,7 @@ body {
 
       ticketContent.innerHTML = ticketHTML;
 
-      // Ocultar el formulario de checkout y mostrar el ticket
+      // Mostrar el ticket y ocultar el formulario de checkout
       document.getElementById('checkoutForm').style.display = 'none';
       document.getElementById('ticket').style.display = 'block';
     }
