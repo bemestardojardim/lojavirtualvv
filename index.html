@@ -2,9 +2,9 @@
 <html>
 <head>
   <title>Tienda Online</title>
-
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="/path/to/manifest.json">
 
   <style>
     body {
@@ -301,7 +301,9 @@ body {
       var message = 'Lista de compras:\n';
 
       cartItems.forEach(function(item) {
-        message += '- ' + item + '\n';
+        message += '- ' + item.name + '\n';
+
+
       });
 
       message += 'Total: $' + total.toFixed(2) + '\n';
@@ -410,7 +412,8 @@ body {
       ticketHTML += '<h3>Lista de compras:</h3>';
       ticketHTML += '<ul>';
       cartItems.forEach(function(item) {
-        ticketHTML += '<li>' + item + '</li>';
+        ticketHTML += '<li>' + item.name + '</li>';
+
       });
       ticketHTML += '</ul>';
       ticketHTML += '<p><strong>Total:</strong> $' + total.toFixed(2) + '</p>';
@@ -436,5 +439,26 @@ body {
       window.open(whatsappURL, '_blank');
     }
   </script>
+  
+  
+  <button onclick="installApp()">Descargar App</button>
+
+<script>
+  function installApp() {
+    if ('getInstalledRelatedApps' in navigator) {
+      navigator.getInstalledRelatedApps().then(function(apps) {
+        if (apps.length === 0) {
+          window.prompt('Presiona Ctrl+D (Windows/Linux) o Cmd+D (Mac) para agregar esta aplicación a tu pantalla de inicio.');
+        } else {
+          window.alert('Ya has instalado esta aplicación.');
+        }
+      });
+    } else {
+      window.alert('Tu navegador no es compatible con la instalación de aplicaciones web.');
+    }
+  }
+</script>
+
+  
 </body>
 </html>
