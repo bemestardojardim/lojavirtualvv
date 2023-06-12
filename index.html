@@ -384,24 +384,24 @@
     }
 
     function sendWhatsAppMessage() {
-      var name = document.getElementById('name').value;
-      var address = document.getElementById('address').value;
+  var name = document.getElementById('name').value;
+  var address = document.getElementById('address').value;
 
-      var message = 'Lista de compras:\n';
+  var message = 'Lista de compras:\n';
 
-      cartItems.forEach(function(item) {
-        message += '- ' + item.name + '\n';
+  cartItems.forEach(function(item) {
+    message += '- ' + item.name + '\n';
+  });
 
+  message += 'Nombre: ' + name + '\n';  // Agregar el nombre al mensaje
+  message += 'Total: $' + total.toFixed(2) + '\n';
+  message += 'Dirección de entrega: ' + address;
 
-      });
+  var whatsappURL = 'https://wa.me/5522998883449?text=' + encodeURIComponent(message);
 
-      message += 'Total: $' + total.toFixed(2) + '\n';
-      message += 'Dirección de entrega: ' + address;
+  window.location.href = whatsappURL;
+}
 
-      var whatsappURL = 'https://wa.me/5522998883449?text=' + encodeURIComponent(message);
-
-      window.location.href = whatsappURL;
-    }
 
     // Categorías y productos
     var categories = [
