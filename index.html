@@ -308,6 +308,9 @@
 
         <button type="button" onclick="sendWhatsAppMessage()">Enviar por WhatsApp</button>
       </form>
+      <input type="checkbox" id="deliveryOption" onclick="updateCart()">
+<label for="deliveryOption">Entrega a cualquier horario (+$10)</label>
+
     </div>
 
 
@@ -315,6 +318,7 @@
 
     
   </div>
+
 
 
 
@@ -341,30 +345,38 @@
 
 
     function updateCart() {
-      var cartItemsElement = document.getElementById('cartItems');
-      cartItemsElement.innerHTML = '';
+  var cartItemsElement = document.getElementById('cartItems');
+  cartItemsElement.innerHTML = '';
 
-      cartItems.forEach(function(item, index) {
-        var listItem = document.createElement('li');
-        listItem.innerHTML = item.name + ' - $' + item.price.toFixed(2) + ' <span class="removeItem" onclick="removeFromCart(' + index + ')">[quitar]</span>';
+  cartItems.forEach(function(item, index) {
+    var listItem = document.createElement('li');
+    listItem.innerHTML = item.name + ' - $' + item.price.toFixed(2) + ' <span class="removeItem" onclick="removeFromCart(' + index + ')">[quitar]</span>';
 
-        cartItemsElement.appendChild(listItem);
-      });
+    cartItemsElement.appendChild(listItem);
+  });
 
-      var totalElement = document.getElementById('total');
-      totalElement.textContent = 'Total: $' + total.toFixed(2);
+  var totalElement = document.getElementById('total');
+  var deliveryOption = document.getElementById('deliveryOption');
+  var deliveryCost = 0;
 
-      var warningElement = document.getElementById('warning');
-      var checkoutButton = document.getElementById('checkoutButton');
+  if (deliveryOption.checked && total >= minPurchaseAmount) {
+    deliveryCost = 10;
+  }
 
-      if (total < minPurchaseAmount) {
-        warningElement.textContent = 'La compra mínima para habilitar el delivery es de $' + minPurchaseAmount.toFixed(2);
-        checkoutButton.disabled = true;
-      } else {
-        warningElement.textContent = 'Ya has habilitado el delivery';
-        checkoutButton.disabled = false;
-      }
-    }
+  totalElement.textContent = 'Total: $' + (total + deliveryCost).toFixed(2);
+
+  var warningElement = document.getElementById('warning');
+  var checkoutButton = document.getElementById('checkoutButton');
+
+  if (total < minPurchaseAmount) {
+    warningElement.textContent = 'La compra mínima para habilitar el delivery es de $' + minPurchaseAmount.toFixed(2);
+    checkoutButton.disabled = true;
+  } else {
+    warningElement.textContent = 'Ya has habilitado el delivery';
+    checkoutButton.disabled = false;
+  }
+}
+
 
     function showCheckoutForm() {
       document.getElementById('cart').style.display = 'none';
