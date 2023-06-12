@@ -393,10 +393,10 @@ function sendWhatsAppMessage() {
   var message = 'Lista de compras:\n';
 
   cartItems.forEach(function(item) {
-    message += '- ' + item.name + '\n';
+    message += '- ' + item.name + ' ($' + item.price.toFixed(2) + ')\n';
   });
 
-  message += 'Nombre: ' + name + '\n';  // Agregar el nombre al mensaje
+  message += 'Nombre: ' + name + '\n';
   message += 'Total: $' + total.toFixed(2) + '\n';
   message += 'Dirección de entrega: ' + address + '\n';
 
@@ -412,6 +412,7 @@ function sendWhatsAppMessage() {
 
   window.location.href = whatsappURL;
 }
+
 
 
 
