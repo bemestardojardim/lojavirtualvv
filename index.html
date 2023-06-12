@@ -308,6 +308,10 @@
 
         <button type="button" onclick="sendWhatsAppMessage()">Enviar por WhatsApp</button>
       </form>
+      
+      
+      
+      
       <input type="checkbox" id="deliveryOption" onclick="updateCart()">
 <label for="deliveryOption">Entrega a cualquier horario (+$10)</label>
 
@@ -382,8 +386,7 @@
       document.getElementById('cart').style.display = 'none';
       document.getElementById('checkoutForm').style.display = 'block';
     }
-
-    function sendWhatsAppMessage() {
+function sendWhatsAppMessage() {
   var name = document.getElementById('name').value;
   var address = document.getElementById('address').value;
 
@@ -395,12 +398,21 @@
 
   message += 'Nombre: ' + name + '\n';  // Agregar el nombre al mensaje
   message += 'Total: $' + total.toFixed(2) + '\n';
-  message += 'Dirección de entrega: ' + address;
+  message += 'Dirección de entrega: ' + address + '\n';
+
+  // Agregar el checkbox para la opción de entrega a cualquier horario
+  message += 'Entrega a cualquier horario: ';
+  if (document.getElementById('deliveryOption').checked) {
+    message += 'Sí (+$10)\n';
+  } else {
+    message += 'No\n';
+  }
 
   var whatsappURL = 'https://wa.me/5522998883449?text=' + encodeURIComponent(message);
 
   window.location.href = whatsappURL;
 }
+
 
 
     // Categorías y productos
