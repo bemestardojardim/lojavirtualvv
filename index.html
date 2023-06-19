@@ -22,7 +22,7 @@
       justify-content: center;
       z-index: 9999;
       opacity: 0; /* La tela de carga comienza invisible */
-      transition: opacity 0.5s ease-in-out; /* Transición de fade in */
+      transition: opacity 0.6s ease-in-out; /* Transición de fade in */
       
     
       
@@ -59,11 +59,13 @@
 
     /* Estilos para el contenido principal */
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #B0E0E6, #87CEEB, #0000FF);
-    
-      text-align: center;
-    }
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #004d40, #00FFFF, #001f3f);
+  background-size: cover;
+  background-attachment: fixed;
+  text-align: center;
+}
+
 
     h1 {
       margin-top: 20px;
@@ -93,7 +95,20 @@
     border-radius: 9px; /* Adiciona pontas arredondadas */
     background-color: rgba(0, 0, 255, 0.2); /* Adiciona um background azul transparente */
     padding: 30px; /* Adiciona um espaço interno de 10px */
+    display: flex;
+      flex-direction: column;
+      align-items: center;
   }
+  
+  .category img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+    }
+  
+  
+  
 
     .product {
       
@@ -143,48 +158,52 @@
 
     #cart {
       margin-top: 30px;
-      background-color: #fff;
+      background-color: #000033;
       border-radius: 5px;
       padding: 20px;
       text-align: left;
+      color: white;
     }
 
     #cart h2 {
       font-size: 18px;
       margin-bottom: 10px;
-      color: #333;
+      
     }
 
     #cartItems {
       list-style-type: none;
       padding: 0;
       margin: 0;
+      
     }
 
     #cartItems li {
       margin-bottom: 5px;
-      color: #555;
+      
     }
 
     #total {
       margin-top: 10px;
       font-weight: bold;
-      color: #333;
+      
     }
 
     #checkoutForm {
       margin-top: 20px;
       text-align: left;
+      
     }
 
     #checkoutForm input[type="text"] {
       width: 100%;
       padding: 5px;
       margin-bottom: 10px;
+      
     }
 
     #checkoutForm button {
-      background-color: #4caf50;
+      background-color: green;
       color: white;
       border: none;
       padding: 8px 16px;
@@ -465,14 +484,21 @@ function sendWhatsAppMessage() {
     var categoriesElement = document.getElementById('categories');
 
     categories.forEach(function(category) {
-      var categoryElement = document.createElement('div');
-      categoryElement.className = 'category';
-      categoryElement.textContent = category.name;
-      categoryElement.addEventListener('click', function() {
-        showProducts(category.products);
-      });
-      categoriesElement.appendChild(categoryElement);
-    });
+  var categoryElement = document.createElement('div');
+  categoryElement.className = 'category';
+  categoryElement.innerHTML = '<h3>' + category.name + '</h3>';
+if (category.name === 'alimentos') {
+  categoryElement.innerHTML += '<img src="ruta/imagen/marcearia.png" alt="' + category.name + '">';
+} else {
+  // Agrega aquí código para imagen predeterminada o dejar vacío el atributo src
+}
+
+
+  categoryElement.addEventListener('click', function() {
+    showProducts(category.products);
+  });
+  categoriesElement.appendChild(categoryElement);
+});
 
     function showProducts(products) {
       categoriesElement.innerHTML = '';
@@ -563,6 +589,5 @@ function sendWhatsAppMessage() {
   
 
 
-  
-</body>
+modificar </body>
 </html>
