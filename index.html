@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tienda Online</title>
+  <title>VV-Delivery</title>
   <link rel="icon" href="ico.png" type="image/png">
 
   
@@ -40,7 +40,7 @@
     .loader-text {
       font-size: 40px;
       font-weight: bold;
-      color: blue;
+      color: yellow;
       margin-bottom: 10px;
       opacity: 0; /* Las letras comienzan invisibles */
       transition: opacity 0.5s ease-in-out; /* Transición de fade in */
@@ -64,12 +64,13 @@
   background-size: cover;
   background-attachment: fixed;
   text-align: center;
+  color: white;
 }
 
 
     h1 {
       margin-top: 20px;
-      color: #333;
+      color: yellow;
     }
       /* Estilos para la tela de carga */
    
@@ -90,7 +91,8 @@
     font-weight: bold;
     margin-top: 10px;
     font-size: 18px;
-    color: #333;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     border: 1px solid #ccc; /* Adiciona uma borda de 1px */
     border-radius: 9px; /* Adiciona pontas arredondadas */
     background-color: rgba(0, 0, 255, 0.2); /* Adiciona um background azul transparente */
@@ -115,7 +117,9 @@
       font-weight: bold;
     margin-top: 10px;
     font-size: 18px;
-      color: #333;
+      color: white;
+            text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.5);
+  
       display: flex;
       align-items: center;
       justify-content: center;
@@ -138,13 +142,13 @@
     .product h3 {
       margin: 0;
       font-size: 16px;
-      color: #333;
+     
     }
 
     .product p {
       margin: 5px 0;
       font-size: 14px;
-      color: #555;
+      color: pink;
     }
 
     .product button {
@@ -192,7 +196,8 @@
     #checkoutForm {
       margin-top: 20px;
       text-align: left;
-      
+      color: yellow;
+      text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.5);
     }
 
     #checkoutForm input[type="text"] {
@@ -304,25 +309,25 @@
   <!-- Contenido principal -->
   
   <div class="container">
-    <h1>Delivery Online</h1>
-    <p>Bienvenido a nuestra servicio de delivery.</p>
+    <h1>Delivery</h1>
+    <p>Bem vindo ao nosso serviço de delivery.</p>
     <!-- Resto del contenido -->
     <div id="categories"></div>
     <div id="cart">
-      <h2>Carrito</h2>
+      <h2>Carrinho</h2>
       <ul id="cartItems"></ul>
-      <p id="total">Total: $0.00</p>
+      <p id="total">Total: R$0.00</p>
       <p id="warning"></p>
-      <button onclick="showCheckoutForm()" id="checkoutButton" disabled>Continuar al checkout</button>
+      <button onclick="showCheckoutForm()" id="checkoutButton" disabled>Continuar ao checkout</button>
     </div>
 
     <div id="checkoutForm" style="display: none;">
       <h2>Checkout</h2>
       <form>
-        <label for="name">Nombre:</label>
+        <label for="name">Nome:</label>
         <input type="text" id="name" required>
 
-        <label for="address">Dirección de entrega:</label>
+        <label for="address">endereço de entrega:</label>
         <input type="text" id="address" required>
 
         <button type="button" onclick="sendWhatsAppMessage()">Enviar por WhatsApp</button>
@@ -332,7 +337,7 @@
       
       
       <input type="checkbox" id="deliveryOption" onclick="updateCart()">
-<label for="deliveryOption">Entrega a cualquier horario (+$10)</label>
+<label for="deliveryOption">Entrega inmediata (+R$5)</label>
 
     </div>
 
@@ -373,7 +378,7 @@
 
   cartItems.forEach(function(item, index) {
     var listItem = document.createElement('li');
-    listItem.innerHTML = item.name + ' - $' + item.price.toFixed(2) + ' <span class="removeItem" onclick="removeFromCart(' + index + ')">[quitar]</span>';
+    listItem.innerHTML = item.name + ' - R$' + item.price.toFixed(2) + ' <span class="removeItem" onclick="removeFromCart(' + index + ')">[quitar]</span>';
 
     cartItemsElement.appendChild(listItem);
   });
@@ -386,16 +391,16 @@
     deliveryCost = 10;
   }
 
-  totalElement.textContent = 'Total: $' + (total + deliveryCost).toFixed(2);
+  totalElement.textContent = 'Total: R$' + (total + deliveryCost).toFixed(2);
 
   var warningElement = document.getElementById('warning');
   var checkoutButton = document.getElementById('checkoutButton');
 
   if (total < minPurchaseAmount) {
-    warningElement.textContent = 'La compra mínima para habilitar el delivery es de $' + minPurchaseAmount.toFixed(2);
+    warningElement.textContent = 'A compra  mínima para habilitar o delivery é de R$' + minPurchaseAmount.toFixed(2);
     checkoutButton.disabled = true;
   } else {
-    warningElement.textContent = 'Ya has habilitado el delivery';
+    warningElement.textContent = 'ENTREGA HJ AS 7:00-AM  11:30-AM E 17:00 HS';
     checkoutButton.disabled = false;
   }
 }
@@ -412,17 +417,17 @@ function sendWhatsAppMessage() {
   var message = 'Lista de compras:\n';
 
   cartItems.forEach(function(item) {
-    message += '- ' + item.name + ' ($' + item.price.toFixed(2) + ')\n';
+    message += '- ' + item.name + ' (R$' + item.price.toFixed(2) + ')\n';
   });
 
   message += 'Nombre: ' + name + '\n';
-  message += 'Total: $' + total.toFixed(2) + '\n';
+  message += 'Total: R$' + total.toFixed(2) + '\n';
   message += 'Dirección de entrega: ' + address + '\n';
 
   // Agregar el checkbox para la opción de entrega a cualquier horario
   message += 'Entrega a cualquier horario: ';
   if (document.getElementById('deliveryOption').checked) {
-    message += 'Sí (+$10)\n';
+    message += 'Sí (+R$10)\n';
   } else {
     message += 'No\n';
   }
@@ -522,7 +527,7 @@ if (category.name === 'alimentos') {
       products.forEach(function(product) {
         var productElement = document.createElement('div');
         productElement.className = 'product';
-        productElement.innerHTML = '<img src="ruta_de_la_imagen/' + product.name.toLowerCase().replace(/ /g, '-') + '.jpg" alt="' + product.name + '"><div><h3>' + product.name + '</h3><p>Precio: $' + product.price.toFixed(2) + '</p><button onclick="addToCart(\'' + product.name + '\', ' + product.price + ')">Añadir al carrito</button></div>';
+        productElement.innerHTML = '<img src="ruta_de_la_imagen/' + product.name.toLowerCase().replace(/ /g, '-') + '.jpg" alt="' + product.name + '"><div><h3>' + product.name + '</h3><p>Precio: R$' + product.price.toFixed(2) + '</p><button onclick="addToCart(\'' + product.name + '\', ' + product.price + ')">Añadir al carrito</button></div>';
         categoriesElement.appendChild(productElement);
       });
     }
@@ -544,7 +549,7 @@ if (category.name === 'alimentos') {
 
       });
       ticketHTML += '</ul>';
-      ticketHTML += '<p><strong>Total:</strong> $' + total.toFixed(2) + '</p>';
+      ticketHTML += '<p><strong>Total:</strong> R$' + total.toFixed(2) + '</p>';
 
       ticketContent.innerHTML = ticketHTML;
 
@@ -589,5 +594,5 @@ if (category.name === 'alimentos') {
   
 
 
-modificar </body>
+MARANATA</body>
 </html>
