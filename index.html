@@ -1,598 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>VV-Delivery</title>
-  <link rel="icon" href="ico.png" type="image/png">
+    <title>Tienda de productos</title>
+    <meta charset="UTF-8">
+      <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        function enviarPedido() {
+            var productosSeleccionados = [];
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
 
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="/path/to/manifest.json">
+            checkboxes.forEach(function(checkbox) {
+                productosSeleccionados.push(checkbox.value);
+            });
 
-  <style>
-   /* Estilos para la tela de carga */
-    .loader-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 255, 0.2); /* Color azul tenue con transparencia */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0; /* La tela de carga comienza invisible */
-      transition: opacity 0.6s ease-in-out; /* Transición de fade in */
-      
-    
-      
-    }
+            var pedidoTexto = 'Olá! Gostaria de fazer o seguinte pedido:\n\n';
+            pedidoTexto += productosSeleccionados.join('\n');
+            pedidoTexto += '\n\nObrigado!';
 
-    .loader-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    
+            var numeroWhatsApp = '+5522998883449';
+            var urlWhatsApp = 'https://wa.me/' + numeroWhatsApp + '?text=' + encodeURIComponent(pedidoTexto);
 
-
-    .loader-text {
-      font-size: 40px;
-      font-weight: bold;
-      color: yellow;
-      margin-bottom: 10px;
-      opacity: 0; /* Las letras comienzan invisibles */
-      transition: opacity 0.5s ease-in-out; /* Transición de fade in */
-    }
-
-    .loader-logo {
-      width: 80px;
-      height: 80px;
-      opacity: 0; /* El logo comienza invisible */
-      transition: opacity 0.5s ease-in-out; /* Transición de fade in */
-    }
-
-
-
-
-
-    /* Estilos para el contenido principal */
-    body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, #004d40, #00FFFF, #001f3f);
-  background-size: cover;
-  background-attachment: fixed;
-  text-align: center;
-  color: white;
-}
-
-
-    h1 {
-      margin-top: 20px;
-      color: yellow;
-    }
-      /* Estilos para la tela de carga */
-   
-
-
-    
-
-    /* Estilos para el contenido principal */
-   
-
-    /* Resto de los estilos... */
-  
-  
-  
-   
-
-    .category {
-    font-weight: bold;
-    margin-top: 10px;
-    font-size: 18px;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    border: 1px solid #ccc; /* Adiciona uma borda de 1px */
-    border-radius: 9px; /* Adiciona pontas arredondadas */
-    background-color: rgba(0, 0, 255, 0.2); /* Adiciona um background azul transparente */
-    padding: 30px; /* Adiciona um espaço interno de 10px */
-    display: flex;
-      flex-direction: column;
-      align-items: center;
-  }
-  
-  .category img {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 10px;
-      border-radius: 50%;
-    }
-  
-  
-  
-
-    .product {
-      
-      font-weight: bold;
-    margin-top: 10px;
-    font-size: 18px;
-      color: white;
-            text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.5);
-  
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 15px;
-      border-bottom: 1px solid #ccc;
-      border: 1px solid #ccc; /* Adiciona uma borda de 1px */
-      padding-bottom: 10px;
-      border-radius: 9px; /* Adiciona pontas arredondadas */
-      padding: 30px; /* Adiciona um espaço interno de 10px */
-    background-color: rgba(0, 0, 255, 0.2); 
-    }
-
-    .product img {
-      width: 80px;
-      height: 80px;
-      margin-right: 10px;
-      border-radius: 5px;
-    }
-
-    .product h3 {
-      margin: 0;
-      font-size: 16px;
-     
-    }
-
-    .product p {
-      margin: 5px 0;
-      font-size: 14px;
-      color: pink;
-    }
-
-    .product button {
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #cart {
-      margin-top: 30px;
-      background-color: #000033;
-      border-radius: 5px;
-      padding: 20px;
-      text-align: left;
-      color: white;
-    }
-
-    #cart h2 {
-      font-size: 18px;
-      margin-bottom: 10px;
-      
-    }
-
-    #cartItems {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-      
-    }
-
-    #cartItems li {
-      margin-bottom: 5px;
-      
-    }
-
-    #total {
-      margin-top: 10px;
-      font-weight: bold;
-      
-    }
-
-    #checkoutForm {
-      margin-top: 20px;
-      text-align: left;
-      color: yellow;
-      text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.5);
-    }
-
-    #checkoutForm input[type="text"] {
-      width: 100%;
-      padding: 5px;
-      margin-bottom: 10px;
-      
-    }
-
-    #checkoutForm button {
-      background-color: green;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #warning {
-      text-align: center;
-      color: #f44336;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-    
-    
-    
-    
-
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-      min-height: 100vh; /* Establece una altura mínima igual a la altura de la ventana del navegador */
-  ...
-    }
-
-    /* Estilos para dispositivos de pantalla grandes */
-    @media only screen and (min-width: 992px) {
-      .container {
-        padding: 40px;
-      }
-    }
-
-    /* Estilos para dispositivos de pantalla medianos */
-    @media only screen and (max-width: 991px) {
-      .container {
-        padding: 30px;
-      }
-    }
-
-    /* Estilos para dispositivos de pantalla pequeños */
-    @media only screen and (max-width: 767px) {
-      .container {
-        padding: 20px;
-      }
-    }
-
-    /* Estilos para dispositivos de pantalla extra pequeños */
-    @media only screen and (max-width: 576px) {
-      .container {
-        padding: 10px;
-      }
-    }
-    
-    
-    
- 
-    
-
-    .ticket h2 {
-      margin-top: 0;
-    }
-
-    .ticketContent {
-      margin-bottom: 10px;
-    }
-
-  .cartItem {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 5px;
-    }
-
-    
-    
-    
-.removeItem {
-    color: red;
-    cursor: pointer;
-    font-size: 15px; /* Tamaño de fuente grande */
-  }
-    
-    
-  </style>
+            window.open(urlWhatsApp);
+        }
+    </script>
 </head>
 <body>
-  <!-- Tela de carga -->
-  <div class="loader-overlay" onclick="hideLoader()">
-    <div class="loader-content">
-      
-      <img class="loader-logo" src="ico.png" alt="Logo">
-      <div class="loader-text">VV-Delivery</div>
-    </div>
-  </div>
-
-  <!-- Contenido principal -->
-  
-  <div class="container">
-    <h1>Delivery</h1>
-    <p>Bem vindo ao nosso serviço de delivery.</p>
-    <!-- Resto del contenido -->
-    <div id="categories"></div>
-    <div id="cart">
-      <h2>Carrinho</h2>
-      <ul id="cartItems"></ul>
-      <p id="total">Total: R$0.00</p>
-      <p id="warning"></p>
-      <button onclick="showCheckoutForm()" id="checkoutButton" disabled>Continuar ao checkout</button>
-    </div>
-
-    <div id="checkoutForm" style="display: none;">
-      <h2>Checkout</h2>
-      <form>
-        <label for="name">Nome:</label>
-        <input type="text" id="name" required>
-
-        <label for="address">endereço de entrega:</label>
-        <input type="text" id="address" required>
-
-        <button type="button" onclick="sendWhatsAppMessage()">Enviar por WhatsApp</button>
-      </form>
-      
-      
-      
-      
-      <input type="checkbox" id="deliveryOption" onclick="updateCart()">
-<label for="deliveryOption">Entrega inmediata (+R$5)</label>
-
-    </div>
-
-
-    </div>
-
-    
-  </div>
-
-
-
-
-
-
-
-
-  <script>
-    var cartItems = [];
-    var total = 0.00;
-    var minPurchaseAmount = 20.00;
-
-    function addToCart(productName, price) {
-      cartItems.push({ name: productName, price: price });
-      total += price;
-      updateCart();
-    }
-
-    function removeFromCart(index) {
-  var removedItem = cartItems.splice(index, 1)[0];
-  total -= removedItem.price;
-  updateCart();
-}
-
-
-    function updateCart() {
-  var cartItemsElement = document.getElementById('cartItems');
-  cartItemsElement.innerHTML = '';
-
-  cartItems.forEach(function(item, index) {
-    var listItem = document.createElement('li');
-    listItem.innerHTML = item.name + ' - R$' + item.price.toFixed(2) + ' <span class="removeItem" onclick="removeFromCart(' + index + ')">[quitar]</span>';
-
-    cartItemsElement.appendChild(listItem);
-  });
-
-  var totalElement = document.getElementById('total');
-  var deliveryOption = document.getElementById('deliveryOption');
-  var deliveryCost = 0;
-
-  if (deliveryOption.checked && total >= minPurchaseAmount) {
-    deliveryCost = 10;
-  }
-
-  totalElement.textContent = 'Total: R$' + (total + deliveryCost).toFixed(2);
-
-  var warningElement = document.getElementById('warning');
-  var checkoutButton = document.getElementById('checkoutButton');
-
-  if (total < minPurchaseAmount) {
-    warningElement.textContent = 'A compra  mínima para habilitar o delivery é de R$' + minPurchaseAmount.toFixed(2);
-    checkoutButton.disabled = true;
-  } else {
-    warningElement.textContent = 'ENTREGA HJ AS 7:00-AM  11:30-AM E 17:00 HS';
-    checkoutButton.disabled = false;
-  }
-}
-
-
-    function showCheckoutForm() {
-      document.getElementById('cart').style.display = 'none';
-      document.getElementById('checkoutForm').style.display = 'block';
-    }
-function sendWhatsAppMessage() {
-  var name = document.getElementById('name').value;
-  var address = document.getElementById('address').value;
-
-  var message = 'Lista de compras:\n';
-
-  cartItems.forEach(function(item) {
-    message += '- ' + item.name + ' (R$' + item.price.toFixed(2) + ')\n';
-  });
-
-  message += 'Nombre: ' + name + '\n';
-  message += 'Total: R$' + total.toFixed(2) + '\n';
-  message += 'Dirección de entrega: ' + address + '\n';
-
-  // Agregar el checkbox para la opción de entrega a cualquier horario
-  message += 'Entrega a cualquier horario: ';
-  if (document.getElementById('deliveryOption').checked) {
-    message += 'Sí (+R$10)\n';
-  } else {
-    message += 'No\n';
-  }
-
-  var whatsappURL = 'https://wa.me/5522998883449?text=' + encodeURIComponent(message);
-
-  window.location.href = whatsappURL;
-}
-
-
-
-
-    // Categorías y productos
-    var categories = [
-      {
-        name: 'Alimentos',
-        products: [
-          {
-            name: 'Frutas frescas',
-            price: 10.00
-          },
-          {
-            name: 'Verduras frescas',
-            price: 8.00
-          },
-          // Agrega más productos aquí
-        ]
-      },
-      {
-        name: 'Higiene personal',
-        products: [
-          {
-            name: 'Jabón de manos',
-            price: 5.00
-          },
-          {
-            name: 'Champú y acondicionador',
-            price: 12.00
-          },
-          // Agrega más productos aquí
-        ]
-      },
-      {
-        name: 'Limpieza del hogar',
-        products: [
-          {
-            name: 'Detergente para ropa',
-            price: 8.00
-          },
-          {
-            name: 'Limpia pisos',
-            price: 7.50
-          },
-          // Agrega más productos aquí
-        ]
-      }
-    ];
-
-    var categoriesElement = document.getElementById('categories');
-
-    categories.forEach(function(category) {
-  var categoryElement = document.createElement('div');
-  categoryElement.className = 'category';
-  categoryElement.innerHTML = '<h3>' + category.name + '</h3>';
-if (category.name === 'alimentos') {
-  categoryElement.innerHTML += '<img src="ruta/imagen/marcearia.png" alt="' + category.name + '">';
-} else {
-  // Agrega aquí código para imagen predeterminada o dejar vacío el atributo src
-}
-
-
-  categoryElement.addEventListener('click', function() {
-    showProducts(category.products);
-  });
-  categoriesElement.appendChild(categoryElement);
-});
-
-    function showProducts(products) {
-      categoriesElement.innerHTML = '';
-
-      var backButton = document.createElement('button');
-      backButton.textContent = 'Volver a categorías';
-      backButton.addEventListener('click', function() {
-        categoriesElement.innerHTML = '';
-        categories.forEach(function(category) {
-          var categoryElement = document.createElement('div');
-          categoryElement.className = 'category';
-          categoryElement.textContent = category.name;
-          categoryElement.addEventListener('click', function() {
-            showProducts(category.products);
-          });
-          categoriesElement.appendChild(categoryElement);
-        });
-      });
-      categoriesElement.appendChild(backButton);
-
-      products.forEach(function(product) {
-        var productElement = document.createElement('div');
-        productElement.className = 'product';
-        productElement.innerHTML = '<img src="ruta_de_la_imagen/' + product.name.toLowerCase().replace(/ /g, '-') + '.jpg" alt="' + product.name + '"><div><h3>' + product.name + '</h3><p>Precio: R$' + product.price.toFixed(2) + '</p><button onclick="addToCart(\'' + product.name + '\', ' + product.price + ')">Añadir al carrito</button></div>';
-        categoriesElement.appendChild(productElement);
-      });
-    }
-    
-    // ...
-
-     function generateTicket() {
-      var name = document.getElementById('name').value;
-      var address = document.getElementById('address').value;
-      var ticketContent = document.getElementById('ticketContent');
-
-      // Generar contenido del ticket
-      var ticketHTML = '<p><strong>Nombre:</strong> ' + name + '</p>';
-      ticketHTML += '<p><strong>Dirección de entrega:</strong> ' + address + '</p>';
-      ticketHTML += '<h3>Lista de compras:</h3>';
-      ticketHTML += '<ul>';
-      cartItems.forEach(function(item) {
-        ticketHTML += '<li>' + item.name + '</li>';
-
-      });
-      ticketHTML += '</ul>';
-      ticketHTML += '<p><strong>Total:</strong> R$' + total.toFixed(2) + '</p>';
-
-      ticketContent.innerHTML = ticketHTML;
-
-      // Mostrar el ticket y ocultar el formulario de checkout
-      document.getElementById('checkoutForm').style.display = 'none';
-      document.getElementById('ticket').style.display = 'block';
-    }
-
-    function shareTicket() {
-      var ticketContent = document.getElementById('ticketContent').innerHTML;
-
-      // Crear contenido para compartir en WhatsApp
-      var shareContent = '¡Gracias por tu compra!\n\n';
-      shareContent += ticketContent;
-
-      // URL de WhatsApp con el mensaje y contenido compartido
-      var whatsappURL = 'https://wa.me/5522998883449?text=' + encodeURIComponent(shareContent);
-
-      // Abrir enlace de WhatsApp para compartir
-      window.open(whatsappURL, '_blank');
-    }
-    
-      window.onload = function() {
-      var loaderOverlay = document.querySelector('.loader-overlay');
-      var loaderText = document.querySelector('.loader-text');
-      var loaderLogo = document.querySelector('.loader-logo');
-
-      // Mostrar la tela de carga con el efecto de fade in
-      loaderOverlay.style.opacity = 1;
-      loaderText.style.opacity = 1;
-      loaderLogo.style.opacity = 1;
-    };
-
-    function hideLoader() {
-      var loaderOverlay = document.querySelector('.loader-overlay');
-      loaderOverlay.style.display = 'none';
-    }
-    
-    
-  </script>
-  
-  
-
-
-MARANATA</body>
+    <h1>Produtos disponíveis</h1>
+    <ul>
+        <li>
+            <img src="cebola.jpg" alt="Cebola" width="100" height="100">
+            <label>
+                <input type="checkbox" name="productos[]" value="Cebola"> Cebola - R$ 5
+            </label>
+        </li>
+        <li>
+            <img src="batata.jpg" alt="Batata Inglesa" width="100" height="100">
+            <label>
+                <input type="checkbox" name="productos[]" value="Batata Inglesa"> Batata Inglesa - R$ 5
+            </label>
+        </li>
+        <li>
+            <img src="Batata-doce.jpg" alt="Batata Doce" width="100" height="100">
+            <label>
+                <input type="checkbox" name="productos[]" value="Batata Doce"> Batata Doce - R$ 4.5
+            </label>
+        </li>
+        <li>
+            <img src="beringela.jpg" alt="Beringela" width="100" height="100">
+            <label>
+                <input type="checkbox" name="productos[]" value="Beringela"> Beringela - R$ 4
+            </label>
+        </li>
+        <li>
+            <img src="abobrinha.jpg" alt="Abobrinha" width="100" height="100">
+            <label>
+                <input type="checkbox" name="productos[]" value="Abobrinha"> Abobrinha - R$ 3
+            </label>
+        </li>
+        <li>
+            <img src="chuchu.jpg" alt="Chuchu" width="100" height="100">
+            <label>
+                <input type="checkbox" name="productos[]" value="Chuchu"> Chuchu - R$ 2.50
+            </label>
+        </li>
+        <li>
+            <img src="abobora-japonesa.jpg" alt="Abobora Japonesa" width="100" height="100">
+            <label>
+                <input type="checkbox" name="productos[]" value="Abobora Japonesa"> Abobora Japonesa - R$ 5
+            </label>
+        </li>
+        <li>
+            <img src="abacate.jpg" alt="Abacate" width="100" height="100">
+            <label>
+                <input type="checkbox" name="productos[]" value="Abacate"> Abacate - R$ 3
+            </label>
+        </li>
+        <li>
+            <img src="coco.jpg" alt="Coco" width="100" height="100">
+            <label>
+                <input type="checkbox" name="productos[]" value="Coco"> Coco - R$ 7
+            </label>
+        </li>
+    </ul>
+    <button onclick="enviarPedido()">Fazer Pedido</button>
+</body>
 </html>
