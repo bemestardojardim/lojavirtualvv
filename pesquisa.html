@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda de Enlaces</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #FF5733;
+            font-size: 24px;
+        }
+
+        p {
+            color: #ccc;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 10px;
+            background-color: #444;
+            color: #fff;
+        }
+
+        button {
+            background-color: #FF5733;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #FF8C54;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Búsqueda de Imagens</h1>
+        <p>Insira o código do produto que desejas encontrar:</p>
+        <input type="text" id="codigo" placeholder="Código do produto">
+        <button onclick="buscarEnlace()">Buscar</button>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function buscarEnlace() {
+            var codigo = document.getElementById("codigo").value.toLowerCase(); // Convertir a minúsculas
+            var enlaces = {
+               "sp1544": "https://drive.google.com/drive/folders/1UGP_ncNt10XxANByixBK6soClcmZpq6H?usp=drive_link",
+                "sp2548": "https://drive.google.com/drive/folders/1BpH7EGZowV9G8ZeP6LApktSR83nkD7cE?usp=drive_link",
+                "sp2562": "https://drive.google.com/drive/folders/1oSFL5axgLgQokc25HOjCix8W4MBNlykZ?usp=drive_link",
+                "sp2632": "https://drive.google.com/drive/folders/1Kyq91cdwnui3d_PxwLpFu-kGnMSmqFbC?usp=drive_link",
+"sp3820": "https://drive.google.com/drive/folders/1Y6ccn-rTRNOE_t8O7k6aFrHHv0QUAw0j?usp=drive_link",
+"sp4123": "https://drive.google.com/drive/folders/1j1SJnD4CpwA4kRPv8mXPNLJs7c26ASQh?usp=drive_link",
+"sp4154": "https://drive.google.com/drive/folders/1E3945IXfCHQ1iWn57eOm3tczND9hTVwT?usp=drive_link",
+"sp4258": "https://drive.google.com/drive/folders/1kDQnc9MBj9UMpfsk2VzSgSTRMc95crye?usp=drive_link",
+"sp4474": "https://drive.google.com/drive/folders/187Bmq5FnChiF6gOnifjk1ggqMDGkbdgk?usp=drive_link",
+"sp4792": "https://drive.google.com/drive/folders/1ILBlYmNio93IpD2CygPOptkQfVJvehdu?usp=drive_link",
+"sp4852": "https://drive.google.com/drive/folders/1P-OeoiRgPlI1DnjUo6rWGb_0GlzD_hEM?usp=drive_link",
+"sp4995": "https://drive.google.com/drive/folders/1ua8dikGszRQBXQfn1xumSnxRDbZaB9h7?usp=drive_link",
+"sp5083": "https://drive.google.com/drive/folders/1IBaZO5fz4wM_a5wd0iCWOeBGp_oYousz?usp=drive_link",
+"sp5123": "https://drive.google.com/drive/folders/1YKjUbYwyxPHLSpIEMB-mMDLOAi70whZJ?usp=drive_link",
+"sp5134": "https://drive.google.com/drive/folders/12eT-HUWRDfO9ppbxmupgUdotpL8533aN?usp=drive_link",
+"sp5188": "https://drive.google.com/drive/folders/1hTpHVRe4l3g1v4lXPFxCSm-gOH5eFPL-?usp=drive_link",
+"sp5248": "https://drive.google.com/drive/folders/1pg3XtvXsZJi-rhkjS3p27eD9ao0J2jbC?usp=drive_link",
+"sp5284": "https://drive.google.com/drive/folders/11EmNHobzrzH1UaGz0B1IxSAZJjHX9OF8?usp=drive_link",
+"sp5324": "https://drive.google.com/drive/folders/1P0e43ncFrxs_s6ZiAbFYO0s-HWXx3m9k?usp=drive_link",
+"sp5380": "https://drive.google.com/drive/folders/1WFsknUmEpripWZVyT4-5Ezldh63U2fn-?usp=drive_link",
+"sp5428": "https://drive.google.com/drive/folders/1w_ZmnO7U-pupDSAQWLiDm3wfZkVmkYCv?usp=drive_link",
+"sp5436": "https://drive.google.com/drive/folders/1g9dpOevTtib-ZxrMtbm7VxbKdbtJ34TN?usp=drive_link",
+"sp5456": "https://drive.google.com/drive/folders/1-2qnC0OUCaHLEZjUFgaY_4DJmpgBBmBL?usp=drive_link",
+"sp5458": "https://drive.google.com/drive/folders/1jdTOR8NHB68-2joTp6f2bf8Tmqp5iwxh?usp=drive_link",
+"sp5496": "https://drive.google.com/drive/folders/1jItGIjG_Y-rTm8IKaa5ziu0RloloVPkU?usp=drive_link",
+"sp5528": "https://drive.google.com/drive/folders/1iY7HjzZ6FhR1rcv57jO2EHo-aeOktj6K?usp=drive_link",
+"sp5599": "https://drive.google.com/drive/folders/1GkUgicvfHzrxykqi-GMpZRpeREziIfqG?usp=drive_link",
+"sp5605": "https://drive.google.com/drive/folders/1MJZLOgPiF7NMb6hiUD-EXUXjrLiy0qH_?usp=drive_link",
+"sp5897": "https://drive.google.com/drive/folders/13AZutladWAljSZ7Ifhqke7keJEhhWVHB?usp=drive_link",
+"sp5899": "https://drive.google.com/drive/folders/19ZKKllQClGdT0A6TXhbRQ0LJDtxTbXsu?usp=drive_link",
+"sp5903": "https://drive.google.com/drive/folders/1jrNOU3A2edxqFSVFF0swb_wOTfjqHebG?usp=drive_link",
+"sp6037": "https://drive.google.com/drive/folders/19t93k5jWi_grzPy12jbglahLzUle0pBk?usp=drive_link",
+"sp6055": "https://drive.google.com/drive/folders/1qA4GzUU0a306rnKXWOYeXE8sUfjDuG_a?usp=drive_link",
+"sp6063": "https://drive.google.com/drive/folders/1EV43JSfzGMa-KT6ICzwGaIDavqmXoHNA?usp=drive_link",
+"sp6069": "https://drive.google.com/drive/folders/1mJjkPKuWUtTVh5P1IfU6Lon6mgYtUMFx?usp=drive_link",
+"sp6165": "https://drive.google.com/drive/folders/1E04SO1aE9kJ1aeqJKbFdtGMrUir5p5fp?usp=drive_link",
+"sp6255": "https://drive.google.com/drive/folders/1_f5dj4sH_qRgrmChhMoTmmQdgjzV0-5W?usp=drive_link",
+"sp6287": "https://drive.google.com/drive/folders/1bkodT4UjfU0QOuK-DXlDeC2m84jVGUiv?usp=drive_link",
+"sp6303": "https://drive.google.com/drive/folders/1Bubqgy_OLAJDHrjl7ImzPqEfAlxJiE2C?usp=drive_link",
+"sp6323": "https://drive.google.com/drive/folders/1WJJgBz8NgbB9tnUvwL-fWjhGiwPDdI-t?usp=drive_link",
+"sp6323": "https://drive.google.com/drive/folders/1Pl8vt6cvhym2mTYl3LU53pRqrv5u7dV9?usp=drive_link",
+"sp6323_1491": "https://drive.google.com/drive/folders/11D2Q3DPl69uSwVNWF8EF_HRYLWjqzryq?usp=drive_link",
+"sp6323_1493": "https://drive.google.com/drive/folders/19MsNheEbBGbiKDWK1xiScg1gDfqOwlpt?usp=drive_link",
+"sp6361": "https://drive.google.com/drive/folders/1nhDMvHh950nRH1HJBuZEQ4Jxl0fc2afY?usp=drive_link",
+"sp6493": "https://drive.google.com/drive/folders/1nonvWxCQq1Kr54cVK82cE-Yfkxolb3cA?usp=drive_link",
+"sp6495": "https://drive.google.com/drive/folders/1tnguq39A8oQRx9xHf6a4JDacw6sFIs3I?usp=drive_link",
+"sp6575": "https://drive.google.com/drive/folders/19l54W1f2g6WgtwM0wzksxtD14MhJGy8y?usp=drive_link",
+"sp6669_1667": "https://drive.google.com/drive/folders/11v5HSo0ow9-hKb1m0Zghu76zMAnRl3_r?usp=drive_link",
+"sp6667_1669": "https://drive.google.com/drive/folders/17lOXcE2w_6OVhpUg1mVDEH6LTRzLayZK?usp=drive_link",
+"sp7061": "https://drive.google.com/drive/folders/1vKkg0ItoGw-GLkswrC-XPysrDHGLhWkR?usp=drive_link",
+"sp7213": "https://drive.google.com/drive/folders/1-cLC5Uu-jk8ZAS2F9unrl3JIEXKkp9vF?usp=drive_link",
+"sp7231": "https://drive.google.com/drive/folders/1k7wtXM1MkGvGtYLlfJRHy6aOAbzRWfll?usp=drive_link",
+"sp7285": "https://drive.google.com/drive/folders/16xxBzVz9p-j9mHP7aGd4e3x84bMIzYYs?usp=drive_link",
+"sp7317": "https://drive.google.com/drive/folders/10zUJxfZ_WZR_EcT4yiRUI5sd51Ir7oj9?usp=drive_link",
+"sp7415": "https://drive.google.com/drive/folders/13S4zsrBRpaj1-njWgbb-KeGfiHE7N1Ej?usp=drive_link",
+"sp7585": "https://drive.google.com/drive/folders/12jlhTQs0mUDi-7JXgj5g0e_Rsjy55gzE?usp=drive_link",
+"sp7627": "https://drive.google.com/drive/folders/12J2m10S6uaf_WGzt-q1_arCWmLCOg689?usp=drive_link",
+"sp7713": "https://drive.google.com/drive/folders/1xU3vrHTUgOtfHzj4ehwv6bdcgrjzR95W?usp=drive_link",
+"sp7717": "https://drive.google.com/drive/folders/1ktYWfhq_de_aa8KBpYZcfoNRiWrQpDBv?usp=drive_linksp7717",
+"sp7745": "https://drive.google.com/drive/folders/1XLqI2DFhXhy7rf2o6GSwREBEzV4mDk1y?usp=drive_link",
+"sp8017": "https://drive.google.com/drive/folders/10CmA2PnbPN80zhkd0nxyUvxYO2NMQcMM?usp=drive_link",
+"sp8023": "https://drive.google.com/drive/folders/11ZQaTfYB1xEIbd0Jf94hMJoEKjc0Fkvo?usp=drive_link",
+"sp8043_1891": "https://drive.google.com/drive/folders/1-hsXz55-xz4csIlzqPuA1HjhyQHXnUYU?usp=drive_linksp8043_1891",
+"sp8135": "https://drive.google.com/drive/folders/17wYT_45_0yw-hxf9cv8Eb7hcgFRBoPck?usp=drive_link",
+"sp8175": "https://drive.google.com/drive/folders/17Up4ucbJokQykXVLQfFN4tcs5wmfVkn-?usp=drive_link",
+"sp8203": "https://drive.google.com/drive/folders/1R60st1LXL2hJV36rXyh6UrUwyXkC4dNe?usp=drive_link",
+"sp8287": "https://drive.google.com/drive/folders/1KLHuygSFT0wqHom8fuTImKuKSCKKy114?usp=drive_link",
+"sp8291": "https://drive.google.com/drive/folders/161YjRx-DvkHo3Pxkh9iPKDUbgNW50J2x?usp=drive_link",
+"sp8293": "https://drive.google.com/drive/folders/1XeWaeZfC7jGOvRHC39oe8GTYNsnPBaHT?usp=drive_link",
+"sp8307": "https://drive.google.com/drive/folders/1XQUwE0cmlfgW6vVZ2s11OD1Kn8VDiw0a?usp=drive_link",
+"sp8315": "https://drive.google.com/drive/folders/1kFOxn2v1CkMn_25Em7E0gxI4VTvq5Ugm?usp=drive_link",
+"sp8337": "https://drive.google.com/drive/folders/1357J1ZuE0OswEXc0ea7gGAjOeyQJWH7X?usp=drive_link",
+"sp8383": "https://drive.google.com/drive/folders/13WfPVWiD6__b0YCC4pOi4qRD3AlL1gTO?usp=drive_link",
+"sp8385": "https://drive.google.com/drive/folders/14AEcETdKm8NcIFWjnzw3BFbOLNPAAkbg?usp=drive_link",
+"sp8411": "https://drive.google.com/drive/folders/1-XsTaGZTFMposjlalugAIWNWA1jRP6dF?usp=drive_link",
+"sp8423": "https://drive.google.com/drive/folders/17paV6_TcgYCIqjKUNpks3ZBUbaIDoDsk?usp=drive_link",
+"sp8485": "https://drive.google.com/drive/folders/14gZ3qva6ymLE7ZLgsbVeuwxp2bbU1GAX?usp=drive_link",
+"sp8489_2177": "https://drive.google.com/drive/folders/172yMd__gHaiDjVs4lS_IMTrjCR2oCPIh?usp=drive_link",
+"sp8517": "https://drive.google.com/drive/folders/13ewUHKrKTRCtHkYXZtjEesgHcMuLp9NO?usp=drive_link",
+"sp8527": "https://drive.google.com/drive/folders/1ikIlrJTrlwSzDb8RGkkIFZF4IYIyw5mS?usp=drive_link",
+"sp8725": "https://drive.google.com/drive/folders/1PPdzAmhCae3wzbNiY-LfyW7hdDiJ2pVY?usp=drive_link",
+"sp8797": "https://drive.google.com/drive/folders/15m7f9RQS1pmkqM2IhcS0IOaTVoyA78eX?usp=drive_link",
+"sp8847_2315": "https://drive.google.com/drive/folders/18DfUNYQmpLws5vxwe4M8J6FaO8Z5vcDN?usp=drive_link",
+"sp8881_2331": "https://drive.google.com/drive/folders/1-c29PfcUKamxUfJHld_dOwySYvrg4to3?usp=drive_link",
+"sp8881_2333": "https://drive.google.com/drive/folders/14eeSalNhlMHtt5qSyn0_vyoIOf-dR7BU?usp=drive_link",
+"sp8897": "https://drive.google.com/drive/folders/16Bf24jqceF9v2U9txOXw6wxyTNhEiTWl?usp=drive_link",
+"sp8969_2413": "https://drive.google.com/drive/folders/13E6_o4EWBiL1cD7FAh0CrOnUqmNSglPA?usp=drive_link",
+"sp8981": "https://drive.google.com/drive/folders/1uI-xJrMFbyMBdyBjM49FOtjNJ8lE5_iV?usp=drive_link",
+"sp9063": "https://drive.google.com/drive/folders/17_4XKWjp7Ofv1mq7V6OwltWoelSS5VVi?usp=drive_link",
+"sp9067_2465": "https://drive.google.com/drive/folders/15cxkXGejriMuNeOYPYT_JiapfeCrg1NP?usp=drive_link",
+"sp9115": "https://drive.google.com/drive/folders/111yBEJCdaO-ar3vukZpqVHh1lh2uKgwh?usp=drive_link",
+"sp9121": "https://drive.google.com/drive/folders/117rsiQZse12crrOR_0HfsFnsQV9TYBhc?usp=drive_link",
+"sp9137": "https://drive.google.com/drive/folders/16Eoz5eGH1Du2JLIyOkMXLrK7tKyiC2jN?usp=drive_link",
+"sp9167": "https://drive.google.com/drive/folders/125Gd7T4UMuVsZeDr5xjnYGTl7onszBGE?usp=drive_link",
+"sp9241": "https://drive.google.com/drive/folders/1ORz_ttCqXxonuYVqJckGKwb01tiHucKg?usp=drive_link",
+"sp9243": "https://drive.google.com/drive/folders/1vboB_gNQ8gCwjENptvFo7NW5QlsMnQD0?usp=drive_link",
+"sp9247": "https://drive.google.com/drive/folders/1GMXwbf0IYCDI8j3U3DyrXH3XKAFtQibE?usp=drive_link",
+"sp3373": "https://drive.google.com/drive/folders/1BkMQCfstS8C9GqrIrZZsdAICzR05sDYn?usp=drive_link",
+"sp3377": "https://drive.google.com/drive/folders/1VhNpVCgNQdl8Syh3TVgJfouQ4G0LHGLp?usp=drive_link",
+"sp3555": "https://drive.google.com/drive/folders/1sDSFKOEYrdVSUKw8kxNAY_1hXRPixbph?usp=drive_link",
+"sp3577": "https://drive.google.com/drive/folders/1bIreIHlKo2wjS6T7Lige9Wm6qsfVQWbS?usp=drive_link",
+                // Agrega más enlaces aquí para los códigos sp
+                "sto0": "https://drive.google.com/drive/folders/Enlace_Para_sto0",
+                "sto1": "https://drive.google.com/drive/folders/Enlace_Para_sto1",
+                // Agrega más enlaces aquí para los códigos sto
+                // Agrega más enlaces aquí para los códigos sp
+            };
+
+            if (codigo in enlaces) {
+                var enlace = enlaces[codigo];
+                window.location.href = enlace;
+            } else {
+                document.getElementById("resultado").innerHTML = "Código no encontrado.";
+            }
+        }
+    </script>
+</body>
+  </html>
+  
