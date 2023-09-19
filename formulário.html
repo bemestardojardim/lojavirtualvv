@@ -1,9 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Buscador de Códigos</title>
     <style>
-    
+    @media screen and (max-width: 600px) {
+    table {
+        width: 100%;
+        background-color: #444;
+    }
+    th, td {
+        padding: 10px;
+        font-size: 14px; /* Reduza o tamanho da fonte */
+        color: #fff;
+    }
+    h1 {
+        font-size: 24px;
+        padding: 10px;
+    }
+    label {
+        font-size: 16px;
+        color: #fff;
+    }
+    input[type="text"],
+    input[type="submit"] {
+        font-size: 14px; /* Reduza o tamanho da fonte */
+        padding: 5px 10px; /* Reduza o espaçamento */
+    }
+}
+
     body {
             font-family: 'Arial', sans-serif;
             background-color: #333; /* Cambiamos el color de fondo a oscuro */
@@ -20,10 +46,11 @@
         }
         
         form {
-            text-align: center;
-            margin: 20px auto;
-            max-width: 400px;
-        }
+    text-align: center;
+    margin: 20px auto;
+    max-width: 400px;
+}
+
 
         label {
             display: block;
