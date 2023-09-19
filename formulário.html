@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buscador de Códigos</title>
+    <style>
+    
+    body {
+            font-family: 'Arial', sans-serif;
+            background-color: #333; /* Cambiamos el color de fondo a oscuro */
+            color: #fff; /* Cambiamos el color del texto a claro */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #444; /* Cambiamos el color de fondo del encabezado */
+            padding: 20px;
+            margin: 0;
+        }
+        
+        form {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #444; /* Cambiamos el color de fondo de la tabla */
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            color: #fff; /* Cambiamos el color del texto a claro */
+        }
+
+        th {
+            background-color: #007bff;
+        }
+
+        tbody td[colspan="7"] {
+            color: #777;
+        }
+
+        @media screen and (max-width: 600px) {
+            table {
+                width: 100%;
+                background-color: #444;
+            }
+            th, td {
+                padding: 10px;
+                color: #fff;
+            }
+            h1 {
+                font-size: 24px;
+                padding: 10px;
+            }
+            label {
+                font-size: 16px;
+                color: #fff;
+            }
+            input[type="text"] {
+                font-size: 14px;
+            }input[type="submit"] {
+                font-size: 14px;
+            }
+        }
+            
+    </style>
+</head>
+<body>
+    <h1>Buscador de Códigos</h1>
+    
+    <!-- Formulario de búsqueda -->
+    <form>
+        <label for="codigo">Ingrese um código (SP o STO):</label>
+        <input type="text" id="codigo" name="codigo">
+        <input type="submit" value="Buscar">
+    </form>
+    
+    <!-- Resultados de la búsqueda -->
+    <table>
+        <thead>
+            <tr>
+                <th>SKU</th>
+                <th>EAN/GTIN</th>
+                <th>NCM</th>
+                <th>Altura (cm)</th>
+                <th>Largura (cm)</th>
+                <th>Comprimento (cm)</th>
+                <th>Peso Bruto (Kg)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se mostrarán los resultados de la búsqueda -->
+        </tbody>
+    </table>
+    
+    <!-- Script para manejar la búsqueda -->
+    <script>
+        // ... (código JavaScript sigue igual)
+   
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const codigoBuscado = document.getElementById('codigo').value.trim().toUpperCase();
+            const tbody = document.querySelector('tbody');
+            
+            // Recorre los datos y muestra el resultado específico
+            const datos = [
+                ["STO01", "7899850310864", "3924.10.00", "7", "30", "35", "0,47"],
+                ["STO02AZ", "7892346156083", "7610.10.00", "2", "32", "32", "0,4"],
+                ["STO02RS", "7896135947142", "7610.10.00", "2", "32", "32", "0,4"],
+                ["STO03", "7890966461075", "7323.93.00", "4", "31", "36", "0,54"]
+                // Agrega más datos aquí según tu estructura
+            ];
+            
+            // Limpia los resultados previos
+            tbody.innerHTML = '';
+            
+            // Busca y muestra el resultado específico
+            const resultado = datos.find(function(fila) {
+                const codigo = fila[0];
+                return codigo === codigoBuscado;
+            });
+            
+            if (resultado) {
+                const row = document.createElement('tr');
+                resultado.forEach(function(dato) {
+                    const cell = document.createElement('td');
+                    cell.textContent = dato;
+                    row.appendChild(cell);
+                });
+                tbody.appendChild(row);
+            } else {
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.textContent = 'Código no encontrado';
+                cell.colSpan = 7; // Colspan para que ocupe todas las columnas
+                row.appendChild(cell);
+                tbody.appendChild(row);
+            }
+        });
+    
+    </script>
+</body>
+      </html>
+      
