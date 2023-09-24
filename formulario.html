@@ -2,45 +2,55 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Projeto Personalizado</title>
     <style>
-        body {
+    /* Estilo general */
+body {
     font-family: 'Roboto', sans-serif;
-    background: #141414; /* Fundo escuro */
+    background-color: #141414;
     color: #fff;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .container {
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.05); /* Fundo semi-transparente */
+    background-color: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
 
+/* Encabezado */
+/* Estilo para el encabezado h1 */
 h1 {
     font-size: 40px;
-    color: #FF5733; /* Cor de destaque para o título */
+    color: #FF5733;
+    background-color: #333;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 20px 0; 
 }
 
+
+/* Texto destacado */
 p {
     font-size: 18px;
-    color: #ddd; /* Cor do texto */
+    color: #ddd;
     margin: 15px 0;
 }
 
-b {
-  color: yellow;
-}
-
+/* Enlaces y botones */
 a {
     color: #FF5733;
     text-decoration: none;
@@ -48,20 +58,40 @@ a {
 }
 
 a:hover {
-    color: #FF8C54; /* Cor de destaque ao passar o mouse sobre links */
+    color: #FF8C54;
 }
+
 .button-link {
-            display: inline-block;
-            margin: 5px;
-            padding: 10px 20px;
-            background-color: #00FF00;
-            color: black;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #00FF00;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    
+    /* Estilo para los pasos */
+.step {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+    
+    
+    
+    
+    
+    
 /* Botão personalizado */
 button {
     background-color: #FF5733;
@@ -108,17 +138,25 @@ button:hover {
 <div class="container">
  <p> <b>Pro</b> </p>
         <h1>Adicionar Produto</h1>
-                <p>Passo 1:<a href="https://www.gruposhopmix.com/os-mais-vendidos" target="_blank" class="button-link"> Catalogo de Produtos </a> </p>
+        <div class="step">
+       
+                <p><i class="fas fa-check-circle"></i> Passo 1:<a href="https://www.gruposhopmix.com/os-mais-vendidos" target="_blank" class="button-link"> Catalogo de Produtos </a> </p>
+                
+    </div>
         
         <!-- Aqui você copiará manualmente as informações da página e colará mais tarde. -->
-        <p>Passo 2: <a href="https://drive.google.com/drive/folders/1k7mwIRtmsd7iphEbtejZKGm7OckzLJ4x?usp=drive_link" target="_blank" class="button-link">Banco de imagens</a> </p>
+                <div class="step">
+
+        <p><i class="fas fa-images"></i> Passo 2: <a href="https://drive.google.com/drive/folders/1k7mwIRtmsd7iphEbtejZKGm7OckzLJ4x?usp=drive_link" target="_blank" class="button-link">Banco de imagens</a> </p>
 <p><a href="https://bemestardojardim.github.io/lojavirtualvv/pesquisa.html" target="_blank"class="button-link2">Ou insira o codigo do produto</a></p>
-
-
+       
+</div>
 
         <!-- Faça a busca manualmente e baixe as imagens necessárias. -->
-
-        <p>Passo 3:<a href="https://docs.google.com/spreadsheets/d/1OAD3F6v1XeYqlx_ZL_w9X93m_rr4RWNQjnq3Dve1PoQ/edit#gid=0" target="_blank" class="button-link"> Planilla de Embalagem</a>  </p>    <p><a href="https://bemestardojardim.github.io/lojavirtualvv/formulario.html" target="_blank">Ou insira o codigo do prodito</a></p>
+ <div class="step">
+        <p><i class="fas fa-file-alt"></i> Passo 3:<a href="https://docs.google.com/spreadsheets/d/1OAD3F6v1XeYqlx_ZL_w9X93m_rr4RWNQjnq3Dve1PoQ/edit#gid=0" target="_blank" class="button-link"> Planilla de Embalagem</a>  </p>    <p><a href="https://bemestardojardim.github.io/lojavirtualvv/formulario.html" target="_blank">Ou insira o codigo do prodito</a></p>
+        
+</div>
         <br>
         <br>
        
