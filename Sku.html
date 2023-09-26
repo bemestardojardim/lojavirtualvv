@@ -1,33 +1,171 @@
-La línea no tiene suficientes campos: DIMENSÕES DOS PRODUTOS EM SUAS EMBALAGENS
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-La línea no tiene suficientes campos: SKU       "EAN/GTIN
+    <title>Buscador de Códigos</title>
+    <style>
+    @media screen and (max-width: 600px) {
+    table {
+        width: 100%;
+        background-color: #444;
+    }
+    th, td {
+        padding: 10px;
+        font-size: 14px; /* Reduza o tamanho da fonte */
+        color: #fff;
+    }
+    h1 {
+        font-size: 24px;
+        padding: 10px;
+    }
+    label {
+        font-size: 16px;
+        color: #fff;
+    }
+    input[type="text"],
+    input[type="submit"] {
+        font-size: 14px; /* Reduza o tamanho da fonte */
+        padding: 5px 10px; /* Reduza o espaçamento */
+    }
+}
 
-La línea no tiene suficientes campos:  (Código Universal)"      NCAltura (cm)      Largura (cm)    Comprimento (cm)        Peso Bruto (Kg)
+    body {
+            font-family: 'Arial', sans-serif;
+            background-color: #333; /* Cambiamos el color de fondo a oscuro */
+            color: #fff; /* Cambiamos el color del texto a claro */
+            margin: 0;
+            padding: 0;
+        }
 
-La línea no tiene suficientes campos: STO738AM  7906689908961   9019.10.00
+        h1 {
+            text-align: center;
+            background-color: #444; /* Cambiamos el color de fondo del encabezado */
+            padding: 20px;
+            margin: 0;
+        }
+        
+        form {
+    text-align: center;
+    margin: 20px auto;
+    max-width: 400px;
+}
 
-La línea no tiene suficientes campos: STO738RS  7906689908893   9019.10.00
 
-La línea no tiene suficientes campos: "STO993VM
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #555;
+        }
 
-La línea no tiene suficientes campos: STO1654PTO        7891841898580      "3923.30.90
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
 
-La línea no tiene suficientes campos: " 27      14      14      0.2
-La línea no tiene suficientes campos: "STO1873
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-La línea no tiene suficientes campos: "STO1876PTO
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #444; /* Cambiamos el color de fondo de la tabla */
+        }
 
-La línea no tiene suficientes campos:
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            color: #fff; /* Cambiamos el color del texto a claro */
+        }
 
-La línea no tiene suficientes campos:
+        th {
+            background-color: #007bff;
+        }
 
-La línea no tiene suficientes campos:
+        tbody td[colspan="7"] {
+            color: #777;
+        }
 
-La línea no tiene suficientes campos:
+        @media screen and (max-width: 600px) {
+            table {
+                width: 100%;
+                background-color: #444;
+            }
+            th, td {
+                padding: 10px;
+                color: #fff;
+            }
+            h1 {
+                font-size: 24px;
+                padding: 10px;
+            }
+            label {
+                font-size: 16px;
+                color: #fff;
+            }
+            input[type="text"] {
+                font-size: 14px;
+            }input[type="submit"] {
+                font-size: 14px;
+            }
+        }
+            
+    </style>
+</head>
+<body>
+    <h1>Buscador de Códigos</h1>
+    
+    <!-- Formulario de búsqueda -->
+    <form>
+        <label for="codigo">Ingrese um código (SP o STO):</label>
+        <input type="text" id="codigo" name="codigo">
+        <input type="submit" value="Buscar">
+    </form>
+    
+    <!-- Resultados de la búsqueda -->
+    <table>
+        <thead>
+            <tr>
+                <th>SKU</th>
+                <th>EAN/GTIN</th>
+                <th>NCM</th>
+                <th>Altura (cm)</th>
+                <th>Largura (cm)</th>
+                <th>Comprimento (cm)</th>
+                <th>Peso Bruto (Kg)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se mostrarán los resultados de la búsqueda -->
+        </tbody>
+    </table>
+    
+    <!-- Script para manejar la búsqueda -->
+    <script>
+        // ... (código JavaScript sigue igual)
+   
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const codigoBuscado = document.getElementById('codigo').value.trim().toUpperCase();
+            const tbody = document.querySelector('tbody');
+            
+            // Recorre los datos y muestra el resultado específico
+            const datos = [
 
-La línea no tiene suficientes campos:
-
-La línea no tiene suficientes campos:
 {'SKU': 'STO01', 'EAN/GTIN': '7899850310864', 'NCM': '3924.10.00', 'altura': '7', 'largura': '30', 'comprimento': '35', 'peso': '0.47'}
 {'SKU': 'STO02AZ', 'EAN/GTIN': '7892346156083', 'NCM': '7610.10.00', 'altura': '2', 'largura': '32', 'comprimento': '32', 'peso': '0.4'}
 {'SKU': 'STO02RS', 'EAN/GTIN': '7896135947142', 'NCM': '7610.10.00', 'altura': '2', 'largura': '32', 'comprimento': '32', 'peso': '0.4'}
@@ -2896,4 +3034,42 @@ La línea no tiene suficientes campos:
 {'SKU': 'STO1900CL', 'EAN/GTIN': '7891841813699', 'NCM': '8512.20.29', 'altura': '13', 'largura': '12', 'comprimento': '12', 'peso': '0.350'}
 {'SKU': 'STO1900VM', 'EAN/GTIN': '7891841858935', 'NCM': '8512.20.29', 'altura': '13', 'largura': '12', 'comprimento': '12', 'peso': '0.350'}
 {'SKU': 'STO1901AZ', 'EAN/GTIN': '7891841895534', 'NCM': '8512.20.29', 'altura': '13', 'largura': '18', 'comprimento': '10', 'peso': '0.570'}
-{'SKU': 'STO1901VM', 'EAN/GTIN': '7891841803911', 'NCM': '8512.20.29', 'altura': '13', 'largura': '18', 'comprimento': '10', 'peso': '0.570'}
+{'SKU': 'STO1901VM', 'EAN/GTIN': '7891841803911', 'NCM': '8512.20.29', 'altura': '13', 'largura': '18', 'comprimento': '10', 'peso': '0.570'},
+
+
+
+
+                
+                // Agrega más datos aquí según tu estructura
+            ];
+            
+            // Limpia los resultados previos
+            tbody.innerHTML = '';
+            
+            // Busca y muestra el resultado específico
+            const resultado = datos.find(function(fila) {
+                const codigo = fila[0];
+                return codigo === codigoBuscado;
+            });
+            
+            if (resultado) {
+                const row = document.createElement('tr');
+                resultado.forEach(function(dato) {
+                    const cell = document.createElement('td');
+                    cell.textContent = dato;
+                    row.appendChild(cell);
+                });
+                tbody.appendChild(row);
+            } else {
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.textContent = 'Código no encontrado';
+                cell.colSpan = 7; // Colspan para que ocupe todas las columnas
+                row.appendChild(cell);
+                tbody.appendChild(row);
+            }
+        });
+    
+    </script>
+</body>
+</html>
